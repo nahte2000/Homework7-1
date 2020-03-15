@@ -8,6 +8,10 @@ public class ArrayDictionary implements Dictionary {
         entries = new KVEntry[capacity];
     }
 
+    public ArrayDictionary() {
+
+    }
+
     private int hashFunction(int key) {
         return key % capacity;
     }
@@ -57,7 +61,20 @@ public class ArrayDictionary implements Dictionary {
     // Return true if an entry is deleted, false otherwise
     @Override
     public boolean remove(int key) {
-        // homework
+        int hashedKey = hashFunction(key);
+        if (entries[hashedKey] == null) {
+            if (count == capacity) {
+                return false;
+            }
+            return false;
+        } else if(key < 0){
+            return false;
+        }
+        entries[hashedKey] = null;
+        count--;
+        return true;
+    }
+    public boolean remove() {
         return false;
     }
 
@@ -65,7 +82,18 @@ public class ArrayDictionary implements Dictionary {
     // with the key
     @Override
     public boolean contains(int key) {
-        // homework
+        if (entries[key] == null) {
+            if (count == capacity) {
+                return false;
+            }
+            return false;
+        } else if(key < 0 || key < capacity){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean contains() {
         return false;
     }
 
@@ -73,7 +101,16 @@ public class ArrayDictionary implements Dictionary {
     // Return null if no entry exists with the given key
     @Override
     public Integer get(int key) {
-        // NOT IMPLEMENTED
+        int hashedKey = hashFunction(key);
+        if (entries[hashedKey] == null) {
+            return null;
+        }
+        KVEntry ptr = entries[hashedKey];
+        while (ptr != null) {
+            if (ptr.key == key) {
+                return ptr.value;
+            }
+        }
         return null;
     }
 
